@@ -6,7 +6,7 @@ import List from "./list";
 import Post from "./post";
 import Page from "./page";
 
-const Root = ({ state }) => {
+const Root = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
 
   return (
@@ -27,12 +27,16 @@ const Root = ({ state }) => {
       <Header isPostType={data.isPostType} isPage={data.isPage}>
         <HeaderContent>
           <h1>Frontity Workshop</h1>
-          <p>Current URL: {state.router.link}</p>
+          {state.theme.isUrlVisible ? (
+            <>
+              Current URL: {state.router.link}{" "}
+              <Button onClick={actions.theme.toggleUrl}>&#x3c; Hide URL</Button>
+            </>
+          ) : (
+            <Button onClick={actions.theme.toggleUrl}>Show URL &#x3e;</Button>
+          )}
           <Menu>
             <Link link="/">Home</Link>
-            <br />
-            <Link link="/page/2">More posts</Link>
-            <br />
             <Link link="/about-us">About Us</Link>
           </Menu>
         </HeaderContent>
@@ -107,5 +111,16 @@ const Menu = styled.nav`
     margin-right: 1em;
     color: steelblue;
     text-decoration: none;
+  }
+`;
+
+const Button = styled.button`
+  background: transparent;
+  border: none;
+  color: #aaa;
+
+  :hover {
+    cursor: pointer;
+    color: #888;
   }
 `;
