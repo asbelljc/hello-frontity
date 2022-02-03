@@ -1,4 +1,5 @@
 import Root from "./components";
+import link from "@frontity/html2react/processors/link";
 
 export default {
   name: "my-first-theme",
@@ -15,6 +16,11 @@ export default {
       toggleUrl: ({ state }) => {
         state.theme.isUrlVisible = !state.theme.isUrlVisible;
       },
+    },
+  },
+  libraries: {
+    html2react: {
+      processors: [link],
     },
   },
 };

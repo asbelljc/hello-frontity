@@ -1,16 +1,25 @@
 import React from "react";
-import { connect, Global, css, styled } from "frontity";
+import { connect, Global, css, styled, Head } from "frontity";
 import Link from "@frontity/components/link";
 import Switch from "@frontity/components/switch";
 import List from "./list";
 import Post from "./post";
 import Page from "./page";
+import Loading from "./loading";
+import Error from "./error";
 
 const Root = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
 
   return (
     <>
+      <Head>
+        <title>My First Frontity Theme</title>
+        <meta
+          name="description"
+          content="Based on the Frontity step-by-step tutorial"
+        />
+      </Head>
       <Global
         styles={css`
           * {
@@ -45,10 +54,12 @@ const Root = ({ state, actions }) => {
       <hr />
       <Main>
         <Switch>
+          <Loading when={data.isFetching} />
           <List when={data.isArchive} />
           <Page when={data.isPage} />
           <Post when={data.isPost} />
           <Page when={data.isDestinations} />
+          <Error when={data.isError} />
         </Switch>
       </Main>
     </>
