@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, styled } from "frontity";
+import { connect, styled, css } from "frontity";
 import Link from "@frontity/components/link";
 
 const List = ({ state, actions, libraries }) => {
@@ -8,14 +8,20 @@ const List = ({ state, actions, libraries }) => {
   const Html2React = libraries.html2react.Component;
 
   return (
-    <Items>
-      {data.items.map((item) => {
+    <Items isDestinations={data.isDestinationsArchive}>
+      {data.items.map((item, index) => {
         const post = state.source[item.type][item.id];
-        const linkTagRegex = /<a[^>]*>([^<]+)<\/a>/g;
+        // const linkStyle = { "animation-delay": index * 200 + "ms" };
 
         return (
           <React.Fragment key={item.id}>
-            <Link link={post.link}>
+            <Link
+              link={post.link}
+              // Offset 'shimmer' animation according to link index
+              css={css`
+                animation-delay: ${index * 200}ms;
+              `}
+            >
               {post.title.rendered}
               <br />
             </Link>
@@ -54,6 +60,18 @@ const List = ({ state, actions, libraries }) => {
 export default connect(List);
 
 const Items = styled.div`
+  @keyframes shimmer {
+    0% {
+      color: steelblue;
+    }
+    50% {
+      color: lightgreen;
+    }
+    100% {
+      color: steelblue;
+    }
+  }
+
   & > a {
     display: block;
     margin: 6px 0;
@@ -61,6 +79,14 @@ const Items = styled.div`
     font-weight: 500;
     color: steelblue;
     text-decoration: none;
+
+    ${(props) =>
+      props.isDestinations &&
+      `
+      animation-name: shimmer;
+      animation-duration: 3s;
+      animation-iteration-count: infinite;
+    `}
   }
 
   hr {
