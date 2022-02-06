@@ -1,6 +1,7 @@
 {
   "name": "hello-frontity",
   "version": "1.0.0",
+  "homepage": "https://asbelljc.github.io/hello-frontity",
   "private": true,
   "description": "Frontity project",
   "keywords": [
@@ -11,6 +12,8 @@
     "npm": ">=6.0.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "frontity dev",
     "build": "frontity build",
     "serve": "frontity serve"
@@ -25,5 +28,8 @@
     "dayjs": "^1.10.7",
     "frontity": "^1.17.1",
     "my-first-theme": "file:packages/my-first-theme"
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }
