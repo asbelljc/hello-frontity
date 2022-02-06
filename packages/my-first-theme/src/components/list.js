@@ -65,7 +65,7 @@ const Items = styled.div`
       color: steelblue;
     }
     50% {
-      color: lightgreen;
+      color: salmon;
     }
     100% {
       color: steelblue;
