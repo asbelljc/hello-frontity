@@ -18,16 +18,18 @@ const Post = ({ state, libraries }) => {
         <meta name="description" content={post.excerpt.rendered} />
       </Head>
       <h2>{post.title.rendered}</h2>
-      <PostInfo>
-        <p>
-          <strong>Posted: </strong>
-          {formattedDate}
-        </p>
-        <p>
-          <strong>Author: </strong>
-          {author.name}
-        </p>
-      </PostInfo>
+      {data.isPost && (
+        <PostInfo>
+          <p>
+            <strong>Posted: </strong>
+            {formattedDate}
+          </p>
+          <p>
+            <strong>Author: </strong>
+            {author.name}
+          </p>
+        </PostInfo>
+      )}
       <Html2React html={post.content.rendered} />
     </div>
   );
