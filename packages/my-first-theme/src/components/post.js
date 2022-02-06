@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 const Post = ({ state, libraries }) => {
   const data = state.source.get(state.router.link);
   const post = state.source[data.type][data.id];
+  const featuredImg = state.source.attachment[post.featured_media];
   const author = state.source.author[post.author];
 
   const formattedDate = dayjs(post.date).format("DD MMMM YYYY");
@@ -17,6 +18,7 @@ const Post = ({ state, libraries }) => {
         <title>{post.title.rendered}</title>
         <meta name="description" content={post.excerpt.rendered} />
       </Head>
+      {featuredImg && <img src={featuredImg.source_url} />}
       <h2>{post.title.rendered}</h2>
       {data.isPost && (
         <PostInfo>
